@@ -8,7 +8,7 @@ const Layout = () => {
   return (
     <>
     <Header/>
-    <main>
+    <main className="bg-gray-100 min-h-screen flex justify-center items-center">
         <Router></Router>
 
     </main>

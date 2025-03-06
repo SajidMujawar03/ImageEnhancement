@@ -2,7 +2,9 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <div>Footer</div>
+    <footer className="bg-gray-800 text-white text-center py-4">
+    <p className="text-lg">&copy; {new Date().getFullYear()} Image Enhancement Tool. All rights reserved.</p>
+  </footer>
   )
 }
 

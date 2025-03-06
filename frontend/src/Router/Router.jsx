@@ -14,7 +14,7 @@ const Router=()=>{
             
            
             <Route path='/' element={<Home/>}/>
-            <Route path='/upload-image' element={<DragAndDrop/>}/>
+            <Route path='/upscale' element={<DragAndDrop/>}/>
             <Route path="/result" element={<Display/>}/>
             <Route path="/about" element={<About/>}/>
 

@@ -114,7 +114,7 @@ const DragAndDrop = () => {
 
         {/* Drag and Drop area */}
         <div
-          className={`w-[300px] h-[200px] border-2 border-dashed flex items-center justify-center cursor-pointer ${
+          className={`w-[400px] h-[400px] border-2 border-dashed flex items-center justify-center cursor-pointer ${
             dragging ? "border-blue-500 bg-blue-100" : "border-gray-400"
           }`}
           onClick={() => fileInputRef.current.click()} // Use ref to trigger file input
