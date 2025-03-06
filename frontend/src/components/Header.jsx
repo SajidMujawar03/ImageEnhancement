@@ -10,7 +10,7 @@ const menuBar=[
     
     {
         title:"Low-Light",
-        path:"/low_light_enhancement"
+        path:"/lowlight"
     },
     {
         title:"Upscaling",

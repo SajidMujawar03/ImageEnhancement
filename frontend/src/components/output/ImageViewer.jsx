@@ -7,8 +7,11 @@ import { useImageContext } from '../../context/imageContext'
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 // import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
-const ImageViewer = ({ imagePath }) => {
+const ImageViewer = (props) => {
   // const ImageViewer = () => {
+
+    // console.log(imagePath)
+    console.log(props)
   return (
     <div className="flex justify-center items-center p-4 w-[500px] h-[500px]  border relative">
       <TransformWrapper>
@@ -33,7 +36,7 @@ const ImageViewer = ({ imagePath }) => {
             {/* Image Component */}
             <TransformComponent>
               <img
-                src={large}
+                src={props.image}
                 alt="Enhanced"
                 className="max-w-full max-h-[500px] object-contain h-[500px] w-[500px] p-2"
               />

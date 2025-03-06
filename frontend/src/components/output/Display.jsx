@@ -82,7 +82,7 @@ const Display = () => {
       <div className="flex flex-col md:flex-row justify-center items-center gap-16">
         {/* Uploaded Image */}
         <div>
-      <p className="text-lg font-semibold text-blue-700 mb-[25px] w-1/2 text-center">Uploaded Image</p>
+      <p className="text-lg font-semibold text-blue-700 mb-[25px] w-full text-center">Uploaded Image</p>
 
       <div className="w-[500px] h-[500px] flex justify-center items-center bg-white border border-blue-700 rounded-xl shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105">
           <ImageViewer image={`http://localhost:5000/${imagePath}`} />
@@ -93,7 +93,7 @@ const Display = () => {
 
         {/* Enhanced Image */}
         <div>
-        <p className="text-lg font-semibold text-blue-700 mb-[25px] w-1/2 text-center">Enhanced Image</p>
+        <p className="text-lg font-semibold text-blue-700 mb-[25px] w-full text-center">Enhanced Image</p>
         <div className="w-[500px] h-[500px] flex justify-center items-center bg-white border border-blue-700 rounded-xl shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105">
           <ImageViewer image={`http://localhost:5000/${enhancedImagePath}`} />
         </div>

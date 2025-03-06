@@ -5,6 +5,8 @@ import DragAndDrop from "../components/input/DragAndDrop";
 import Display from "../components/output/Display";
 import About from "../components/About";
 import ImageViewer from "../components/output/ImageViewer";
+import Upscale from "../components/input/Upscale";
+import LowLight from "../components/output/LowLightOut";
 
 
 
@@ -15,8 +17,12 @@ const Router=()=>{
             
            
             <Route path='/' element={<Home/>}/>
-            <Route path='/upscale' element={<DragAndDrop/>}/>
-            <Route path="/result" element={<Display/>}/>
+
+            <Route path='/lowlight' element={<DragAndDrop/>}/>
+            <Route path='/upscale' element={<Upscale/>}/>
+            <Route path="/upscale-result" element={<Display/>}/>
+            <Route path="/lowlight-result" element={<LowLight/>}/>
+
             <Route path="/about" element={<About/>}/>
 
         

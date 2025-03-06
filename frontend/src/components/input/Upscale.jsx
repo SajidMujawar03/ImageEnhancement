@@ -12,7 +12,7 @@ const override = {
     height:"25px"
   };
 
-const DragAndDrop = () => {
+const Upscale = () => {
   const {enhancedImagePath,imagePath,setImagePath,setEnhancedImagePath}= useImageContext();
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
@@ -77,7 +77,7 @@ const DragAndDrop = () => {
     const formData = new FormData();
     formData.append("file", image);
     try {
-      const response = await fetch('http://localhost:5000/upload1', {
+      const response = await fetch('http://localhost:5000/upload2', {
         method: 'POST',
         body: formData,
       });
@@ -94,7 +94,7 @@ const DragAndDrop = () => {
       setImagePath(result.image_path)
       console.log(imagePath)
 
-      navigate("/lowlight-result");
+      navigate("/upscale-result");
 
       // updateImagePaths(result.image_path,result.enhanced_image_path);
       console.log(imagePath+"       "+enhancedImagePath)
@@ -199,4 +199,4 @@ const DragAndDrop = () => {
   );
 };
 
-export default DragAndDrop;
+export default Upscale;
