@@ -29,7 +29,7 @@ const menuBar=[
 const Header = () => {
   return (
     <>
-    <header className="bg-white shadow-md w-full fixed top-0 left-0">
+    <header className="bg-white shadow-md w-full fixed top-0 left-0 z-99">
       <div className="container mx-auto flex justify-between items-center p-4">
         {/* Logo or Title */}
         <h1 className="text-2xl font-bold text-gray-800">IMAGE ENHANCEMENT TOOL</h1>
