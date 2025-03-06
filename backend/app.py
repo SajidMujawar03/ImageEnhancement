@@ -5,7 +5,55 @@ from PIL import Image
 import numpy as np
 import tensorflow as tf
 import keras
+from keras import layers
 import cv2
+
+
+def charbonnier_loss(y_true, y_pred, epsilon=1e-3):
+    return tf.reduce_mean(tf.sqrt(tf.square(y_true - y_pred) + epsilon))
+
+# Custom metric function (Peak Signal-to-Noise Ratio)
+def peak_signal_noise_ratio(y_true, y_pred):
+    return tf.image.psnr(y_true, y_pred, max_val=255) 
+
+
+custom_objects = {
+    'charbonnier_loss': charbonnier_loss,
+    'peak_signal_noise_ratio': peak_signal_noise_ratio
+}
+
+def low_light(image_path): 
+    
+    image = Image.open(image_path)
+
+    # og_img_array= np.array(image)
+    # original_size = (og_img_array.shape[1], og_img_array.shape[0])
+    # image = image.resize((600, 400))
+    image = image.convert('RGB')
+    # Convert image to a numpy array for the model
+    image = keras.utils.img_to_array(image)
+    image = image.reshape(
+        (np.shape(image)[0], np.shape(image)[1], 3)
+    )
+    image = image.astype("float32") / 255.0
+    image = np.expand_dims(image, axis=0)
+    output = model1.predict(image) 
+    output_image = output[0] * 255.0
+    output_image = output_image.clip(0, 255)
+    output_image = np.uint8(output_image)
+    # Convert the processed numpy array to a PIL Image
+    enhanced_image = Image.fromarray(output_image)
+    # enhanced_image=cv2.resize(enhanced_image, original_size)
+    # if enhanced_image is None:
+    # raise ValueError("Error: Image processing failed, resulting in None.")
+
+    output_image_path = os.path.join('static', 'enhanced_image.png')
+    if not os.path.exists('static'):
+        os.makedirs('static')
+    enhanced_image.save(output_image_path)
+    return output_image_path
+
+model1 = tf.keras.models.load_model('./model1.h5', custom_objects=custom_objects)
 
 
 class EDSRModel(tf.keras.Model):
@@ -95,97 +143,61 @@ def PSNR(super_resolution, high_resolution):
 custom_objects = {"EDSRModel":EDSRModel}
 
 with keras.utils.custom_object_scope(custom_objects):
-    model = keras.models.load_model("./model.h5", custom_objects={'PSNR':PSNR})
+    model2 = keras.models.load_model("model2.h5", custom_objects={'PSNR':PSNR})
 
 app = Flask(__name__)
-
 CORS(app)
 
 # Ensure directories exist
 os.makedirs('uploads', exist_ok=True)
 os.makedirs('static', exist_ok=True)
 
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-@app.route('/upload1')
-def upload1():
-    return render_template('upload1.html')
-
-@app.route('/aboutus')
-def about():
-    return render_template('aboutUs.html')
-
-@app.route('/login')
-def login():
-    return render_template('login.html')
-
 
 def enhance_image(img): 
     lowres = tf.convert_to_tensor(img, dtype=tf.uint8)
-    output = model.predict(lowres) 
-    
-    
+    output = model2.predict(lowres) 
     # Convert the processed numpy array to a PIL Image
     enhanced_image = Image.fromarray(output)
-    
     output_image_path = os.path.join('static', 'enhanced_image.png')
-    
-
     if not os.path.exists('static'):
         os.makedirs('static')
-    
-   
     enhanced_image.save(output_image_path)
-    
-
     return output_image_path
 
 
-@app.route('/upload1', methods=['POST'])
-def upload_image1():
-    if 'file' not in request.files:
-        return render_template('index.html', error="No file part")
-    
+@app.route('/upload2', methods=['POST'])
+def upload_image2():
     original_image = request.files['file']
-    
-    if original_image.filename == '':
-        return render_template('index.html', error="No selected file")
-    
     image = Image.open(original_image)
-
-    
     image_path = os.path.join('static', 'original_image.png')
     image.save(image_path)
-    
     enhanced_image_path = enhance_image(image)
-    
     return jsonify({
         'image_path': image_path,
         'enhanced_image_path': enhanced_image_path
     })
 
 
-@app.route('/upload2', methods=['POST'])
-def upload_image2():
-    if 'file' not in request.files:
-        return render_template('upload2.html', error="No file part")
-    
+
+@app.route('/upload1', methods=['POST'])
+def upload_image1():
     original_image = request.files['file']
-    
-    if original_image.filename == '':
-        return render_template('index.html', error="No selected file")
-    
     image = Image.open(original_image)
+
 
     image_path = os.path.join('static', 'original_image.png')
     image.save(image_path)
+    enhanced_image_path = low_light(image_path)
+
+    return jsonify({
+        'image_path': image_path,
+        'enhanced_image_path': enhanced_image_path
+    })
+
     
 
-    enhanced_image_path = enhance_image(image)
+
     
-    return render_template('result2.html', enhanced_image_path=enhanced_image_path, image_path=image_path)
 
 if __name__ == "__main__":
     app.run(debug=True)
