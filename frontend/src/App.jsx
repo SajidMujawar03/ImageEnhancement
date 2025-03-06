@@ -3,6 +3,7 @@ import './App.css'
 import DragAndDrop from './components/input/DragAndDrop'
 import Display from './components/output/Display'
 import Layout from './Layout/Layout'
+import ImageViewer from './components/output/ImageViewer'
 
 
 function App() {
@@ -14,6 +15,8 @@ function App() {
      {/* <Display/> */}
 
      <Layout/>
+  {/* <ImageViewer/> */}
+     
     </>
   )
 }

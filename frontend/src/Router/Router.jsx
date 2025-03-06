@@ -4,6 +4,7 @@ import Home from "../components/Home";
 import DragAndDrop from "../components/input/DragAndDrop";
 import Display from "../components/output/Display";
 import About from "../components/About";
+import ImageViewer from "../components/output/ImageViewer";
 
 
 
@@ -14,7 +15,7 @@ const Router=()=>{
             
            
             <Route path='/' element={<Home/>}/>
-            <Route path='/upload-image' element={<DragAndDrop/>}/>
+            <Route path='/upscale' element={<DragAndDrop/>}/>
             <Route path="/result" element={<Display/>}/>
             <Route path="/about" element={<About/>}/>
 
