@@ -1,10 +1,17 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { useImageContext } from "../../context/imageContext";
+import { useNavigate } from "react-router-dom";
 
 const DragAndDrop = () => {
+  const {enhancedImagePath,imagePath,setImagePath,setEnhancedImagePath}= useImageContext();
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const [dragging, setDragging] = useState(false);
   const fileInputRef = useRef(null); // Reference for input file
+
+  const navigate=useNavigate();
 
   // Handle file selection (click input)
   const handleImageChange = (e) => {
@@ -57,14 +64,41 @@ const DragAndDrop = () => {
 
     const formData = new FormData();
     formData.append("file", image);
-
     try {
-      alert("Image uploaded successfully!"); // Mock success message
+      const response = await fetch('http://localhost:5000/upload1', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to upload image');
+      }
+      
+
+      const result = await response.json();
+      setEnhancedImagePath(result.enhanced_image_path);
+      setImagePath(result.image_path)
+      // console.log(imagePath)
+
+      navigate("/result");
+
+      // updateImagePaths(result.image_path,result.enhanced_image_path);
+      // console.log(imagePath+"       "+enhancedImagePath)
     } catch (error) {
-      console.error("Error uploading image:", error);
-      alert("An error occurred.");
+      setError('Error uploading image: ' + error.message);
+    } finally {
+      setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (imagePath) {
+      console.log('Updated imagePath:', imagePath);
+    }
+    if (enhancedImagePath) {
+      console.log('Updated enhancedImagePath:', enhancedImagePath);
+    }
+  }, [imagePath, enhancedImagePath]); 
 
   return (
     <>
@@ -105,7 +139,7 @@ const DragAndDrop = () => {
           className="bg-blue-500 text-white px-4 py-2 rounded-md w-[200px] hover:bg-blue-600 transition"
           disabled={!image} // Disable button if no image selected
         >
-          Click to Upload
+          {loading ? 'Uploading...' : 'Upload Image'}
         </button>
 
         {/* Remove Image Button */}
