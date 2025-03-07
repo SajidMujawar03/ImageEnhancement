@@ -25,6 +25,9 @@ project-root/
 │   │── README.md
 │   │── eslint.config.js          # Linting configuration
 │   │── index.html                # Entry point for frontend
+|   |── package.lock.json
+|   |── package.json
+|   |── vite.config.js
 ```
 
 ## Technologies Used
