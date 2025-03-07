@@ -1,13 +1,14 @@
 import React from 'react'
 import ToolsProvided from './ToolsProvided'
-
+import mainImg from "../assets/main.jpg"
+import mainImg1 from "../assets/main1.png"
 
 
 const Home = () => {
   return (
     <>
 
-    <main className='flex justify-center items-center flex-col w-full bg-gray-100 min-h-screen  pt-[50px]'>
+    <main className='flex justify-center items-center flex-col w-full bg-gray-100 min-h-screen  '>
     <section className="flex flex-col items-center text-center pt-8 bg-gray-100 min-h-[60vh] w-[100%] justify-center">
       {/* Title */}
       <h2 className="text-4xl font-semibold text-gray-800 mb-4">Welcome to the Image Enhancement Tool</h2>
@@ -21,9 +22,9 @@ const Home = () => {
         <div className="text-center">
           <p className="text-gray-600 mb-2 font-medium">Before</p>
           <img 
-            src="before-image-url.jpg" 
+            src={mainImg} 
             alt="Before Enhancement" 
-            className="w-60 h-40 object-cover rounded-lg border border-gray-300 shadow"
+            className="w-[400px] h-[300px] object-cover rounded-lg border border-gray-300 shadow"
           />
         </div>
   
@@ -39,15 +40,15 @@ const Home = () => {
         <div className="text-center">
           <p className="text-gray-600 mb-2 font-medium">After</p>
           <img 
-            src="after-image-url.jpg" 
+            src={mainImg1}
             alt="After Enhancement" 
-            className="w-60 h-40 object-cover rounded-lg border border-gray-300 shadow"
+            className="w-[400px] h-[300px] object-cover rounded-lg border border-gray-300 shadow"
           />
         </div>
       </div>
     </section>
 
-    <section className="bg-gray-900 text-white py-12 w-[100%] h-[500px]">
+    <section className="bg-gray-900 text-white py-12 w-[100%] h-[500px] mt-[30px]">
 
       
     <ToolsProvided/>

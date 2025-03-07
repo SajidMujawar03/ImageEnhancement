@@ -61,12 +61,18 @@
 
 
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useImageContext } from '../../context/imageContext';
 import ImageViewer from './ImageViewer';
+import { useLocation } from 'react-router-dom';
+
 
 const Display = () => {
-  const { imagePath, enhancedImagePath } = useImageContext();
+  const { imagePath, enhancedImagePath ,setEnhancedImagePath,setImagePath} = useImageContext();
+
+
+
+ 
 
   return (
     <div className="flex flex-col justify-center items-center gap-10 p-10 md:p-20 bg-gray-100 min-h-screen">

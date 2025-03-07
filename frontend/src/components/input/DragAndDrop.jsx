@@ -80,6 +80,7 @@ const DragAndDrop = () => {
       const response = await fetch('http://localhost:5000/upload1', {
         method: 'POST',
         body: formData,
+        
       });
 
       // console.log(response)
@@ -90,14 +91,15 @@ const DragAndDrop = () => {
       
 
       const result = await response.json();
+
       setEnhancedImagePath(result.enhanced_image_path);
       setImagePath(result.image_path)
-      console.log(imagePath)
-
+      // console.log(imagePath)
+      // setLoading(false)
       navigate("/lowlight-result");
+      
 
-      // updateImagePaths(result.image_path,result.enhanced_image_path);
-      console.log(imagePath+"       "+enhancedImagePath)
+     
     } catch (error) {
       setError('Error uploading image: ' + error.message);
     } finally {
@@ -119,7 +121,7 @@ const DragAndDrop = () => {
   return (
     <>
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
-      <h1 className="text-3xl font-bold text-gray-800 mb-4">AI Image Upscaler</h1>
+      <h1 className="text-3xl font-bold text-gray-800 mb-4">AI Image Converter For Low Light Image To High Quality Image</h1>
       <p className="text-gray-600 mb-6 text-center max-w-md">
         Upload an image to enhance its quality using AI. You can drag and drop an image or click to select one.
       </p>

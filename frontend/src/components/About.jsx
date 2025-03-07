@@ -1,8 +1,13 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import up from "./../assets/large.jpg"
-import aa from "./../assets/aa.jpeg"
 import { EyeIcon } from "@heroicons/react/outline";
+import one from "../assets/one.jpg";
+import one1 from "../assets/one1.png";
+import two from "../assets/two.png"
+import two1 from "../assets/two2.png"
+import three from "../assets/three.jpg"
+import three1 from "../assets/three1.png"
+
 
 const About = () => {
   const [hoveredTool, setHoveredTool] = useState(null);
@@ -11,16 +16,16 @@ const About = () => {
   // Sample images (Replace with actual image paths)
   const toolImages = {
     upscale: {
-      before:up,
-      after: aa,
+      before:three,
+      after: three1,
     },
     lowlight: {
-      before: "/images/lowlight-before.jpg",
-      after: "/images/lowlight-after.jpg",
+      before: one,
+      after: one1,
     },
     sharpen: {
-      before: "/images/sharpen-before.jpg",
-      after: "/images/sharpen-after.jpg",
+      before: two,
+      after: two1,
     },
   };
 

@@ -5,10 +5,11 @@ import Footer from '../components/Footer'
 
 
 const Layout = () => {
+  
   return (
     <>
     <Header/>
-    <main className='min-h-screen '>
+    <main className='min-h-screen pt-[50px]'>
         <Router></Router>
 
     </main>

@@ -1,13 +1,30 @@
-import { useState } from 'react'
+
+import { useLocation } from 'react-router-dom';
 import './App.css'
-import DragAndDrop from './components/input/DragAndDrop'
-import Display from './components/output/Display'
+
 import Layout from './Layout/Layout'
-import ImageViewer from './components/output/ImageViewer'
+import { useEffect, useRef } from 'react';
+import { useImageContext } from './context/imageContext';
+
+
 
 
 function App() {
+  const {setEnhancedImagePath,setImagePath}=useImageContext();
 
+  const location = useLocation();
+  const prevPath = useRef(location.pathname); // Store previous route
+
+
+  useEffect(() => {
+    // If leaving the `/result` route, reset image paths
+    if (prevPath.current.includes("result") && !location.pathname.includes("result")) {
+      setImagePath(null);
+      setEnhancedImagePath(null);
+    }
+    prevPath.current = location.pathname; // Update previous path
+    console.log(location.pathname)
+  }, [location.pathname]);
 
   return (
     <>

@@ -18,7 +18,7 @@ const menuBar=[
     },
     {
         title:"Sharpening",
-        path:"/sharpening"
+        path:"/sharpning"
     },
     {
         title:"About",

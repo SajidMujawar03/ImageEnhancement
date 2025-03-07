@@ -194,10 +194,49 @@ def upload_image1():
         'enhanced_image_path': enhanced_image_path
     })
 
+@app.route('/upload3', methods=['POST'])
+def upload_image3():
+    if 'file' not in request.files:
+        return jsonify({"error": "No file part"}), 400
     
+    file = request.files['file']
 
+    if file.filename == '':
+        return jsonify({"error": "No selected file"}), 400
 
-    
+    # Convert file to OpenCV format
+    file_bytes = np.frombuffer(file.read(), np.uint8)  # Convert file to numpy array
+    original_image = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)  # Decode image
+
+    if original_image is None:
+        return jsonify({"error": "Invalid image format"}), 400
+
+    # Sharpening Kernel
+    sharpening_kernel = np.array([[-1, -1, -1],
+                                     [-1,  9, -1],
+                                     [-1, -1, -1]])
+
+    # Apply Sharpening
+    sharpened_image = cv2.filter2D(original_image, -1, sharpening_kernel)
+
+    # Ensure static folder exists
+    os.makedirs("static", exist_ok=True)
+
+    # Define save paths
+    image_path = 'static/original_image.png'
+    enhanced_image_path = 'static/enhanced_image.png'
+
+    # Save images
+    cv2.imwrite(image_path, original_image)
+    cv2.imwrite(enhanced_image_path, sharpened_image)
+
+    print(image_path)
+
+    return jsonify({
+         'image_path': image_path,
+        'enhanced_image_path': enhanced_image_path
+    })
+       
 
 if __name__ == "__main__":
     app.run(debug=True)
