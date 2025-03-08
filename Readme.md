@@ -91,9 +91,6 @@ project-root/
 
 ## Contributors
 
-- **Tony** (Developer)
-- Team Members (if applicable)
+- **Pruthiviraj S. Patil** (Developer)
+- **Sajid Mujwar** (Frontend Developer)
 
-## License
-
-This project is licensed under the MIT License
