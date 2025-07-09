@@ -92,5 +92,6 @@ project-root/
 ## Contributors
 
 - **Pruthiviraj S. Patil** (Developer)
-- **Sajid Mujwar** (Frontend Developer)
+- **Sajid Mujawar** (Frontend Developer)
+- **Vijay Lad**
 
